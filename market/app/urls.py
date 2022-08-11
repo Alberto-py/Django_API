@@ -15,4 +15,8 @@ urlpatterns = [
     path('eliminar-producto/<id>/', views.eliminar_producto, name='eliminar_producto'),
     path('registro/', views.registro, name='registro'),
     path('api/', include(router.urls)),
+    path('register', views.RegisterView.as_view(), name='register'),
+    path('loginview', views.LoginView.as_view(), name='loginview'),
+    path('user', views.UserView.as_view(), name='user'),
+    path('logoutview', views.LogoutView.as_view(), name='logoutview'),
 ]
