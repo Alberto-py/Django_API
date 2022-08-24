@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albert Suplement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    {% block css %}
+    {% endblock css %}
+</head>
+<body>
+
+    
+    <header id="header">
+        <img class="menu" src="{% static 'img/menuiconwhite.png' %}" alt="menu" id="menu">
+        <div class="contenedor_logo">
+            <img  class="logo"  src="{% static 'img/logomuscle.png' %}" alt="logo">
+        </div>
+
+        <div>
+            
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}"> Inicio </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contacto' %}">Contacto</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'galeria' %}">Galería</a>
+                    </li>
+                    {% if perms.app.add_producto %}
+                    <li>
+                        <a href="{% url 'agregar_producto' %}">Agregar Producto</a>
+                    </li>
+                    {% endif %}
+                    {% if perms.app.view_producto %}
+                    <li>
+                        <a href="{% url 'listar_productos' %}">Productos</a>
+                    </li>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                    </li>
+                    <!--<li>
+                        <a href="#">@{{ user.username }}</a>
+                    </li>-->
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'register' %}">Registrate</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <div id="contenido">
+
+        {% block contenido %}
+        {% endblock contenido %}
+
+    </div>
+
+    <footer>
+        <div class="marcas">
+            <img src="{% static 'img/footer/logo_dymatize.jpg' %}" alt="apple">
+            <img src="{% static 'img/footer/logo_gat.png' %}" alt="lenovo">
+            <img src="{% static 'img/footer/logo_muscletech.png' %}" alt="microsoft">
+            <img src="{% static 'img/footer/logo_birman.png' %}" alt="samsung">
+            <img src="{% static 'img/footer/logo_on.png' %}" alt="xiaomi">
+        </div>
+        <div class="logo_footer">
+            <img src="{% static 'img/logomuscle2.png' %}" alt="logo">
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title": "Confirmación",
+                    "text": "{{m}}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    {% block js %}
+    {% endblock js %}
+</body>
+</html>

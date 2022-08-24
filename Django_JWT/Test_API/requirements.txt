@@ -1,0 +1,7 @@
+Django==4.0.6
+Pillow
+django-rest-framework
+PyJWT
+django-cors-headers
+mysqlclient
+django-crispy-forms
